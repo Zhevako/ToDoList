@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Task
 from .forms import TaskForm
+from django.contrib import messages
 
 
 # Create your views here.
@@ -20,7 +21,8 @@ def index(request):
     return render(request, 'base.html', context)
 
 
-def remove(request, task_id):
-    item = Task.objects.get(id=task_id)
+def remove(request, pk):
+    item = Task.objects.get(id=pk)
     item.delete()
+    messages.info(request, 'Item removed!')
     return redirect('index')

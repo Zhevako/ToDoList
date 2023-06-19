@@ -10,12 +10,20 @@
         {{ forms.as_p }}
         <input type="submit" value="submit">
     </form>
+    {% if messages %}
+        {% for m in messages %}
+            {{ m }}
+        {% endfor %}
+    {% endif %}
 
     {% for item in item_list %}
         <p>{{ item }}</p>
         <p>{{ item.description }}</p>
         <p>{{ item.date }}</p>
-    {%  endfor %}
-
+        <form action="del/{{ item.id }}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="remove">
+        </form>
+    {% endfor %}
 </body>
 </html>
